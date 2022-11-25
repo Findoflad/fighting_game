@@ -30,6 +30,7 @@ function animate() {
     context.fillStyle = 'black'
     context.fillRect(0, 0, canvas.width, canvas.height)
     background.update()
+    test.update()
     player.update()
     enemy.update()
 
@@ -37,13 +38,21 @@ function animate() {
     enemy.velocity.x = 0
 
     //player movement
+    player.image = player.sprites.idle.image
+    player.framesMax = player.sprites.idle.framesMax
     if (keys.a.pressed && player.lastKey === 'a') {
         player.velocity.x = -5
+        player.image = player.sprites.run.image
+        player.framesMax = player.sprites.run.framesMax
     } else if (keys.d.pressed && player.lastKey === 'd') {
         player.velocity.x = 5
+        player.image = player.sprites.run.image
+        player.framesMax = player.sprites.run.framesMax
     }
 
     //enemy movement
+    enemy.image = enemy.sprites.idle.image
+    enemy.framesMax = enemy.sprites.idle.framesMax
     if (keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft') {
         enemy.velocity.x = -5
     } else if (keys.ArrowRight.pressed && enemy.lastKey === 'ArrowRight') {
@@ -75,21 +84,50 @@ const background = new Sprite({
     framesMax: 24
 })
 
+const test = new Sprite({
+    position: { x: 0, y: 0 },
+    imageSrc: './sprites/Player_2/idle.png',
+    framesMax: 7,
+    scale: 0.7
+})
+
 //creating players
 const player = new Fighter({
     position: { x: 256, y: 100 },
     velocity: { x: 0, y: 0 },
-    offset: { x: 0, y: 0 }
+    offset: { x: 0, y: 0 },
+    imageSrc: './sprites/Player_1/idle.png',
+    framesMax: 9,
+    scale: 0.7,
+    offset: {x: 215, y: 145},
+    sprites: {
+        idle:{
+            imageSrc:'./sprites/Player_1/idle.png',
+            framesMax: 9
+        },
+        run:{
+            imageSrc:'./sprites/Player_1/run.png',
+            framesMax: 14
+        }
+    }
 })
 
 const enemy = new Fighter({
     position: { x: 768, y: 100 },
     velocity: { x: 0, y: 0 },
     offset: { x: -50, y: 0 },
-    color: 'blue'
+    imageSrc: './sprites/Player_2/idle.png',
+    framesMax: 7,
+    scale: 0.6,
+    offset: {x: 215, y: 125},
+    sprites: {
+        idle:{
+            imageSrc:'./sprites/Player_2/idle.png',
+            framesMax: 7
+        }
+    }
 })
 
-console.log(player)
 
 timerDecreasing()
 
