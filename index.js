@@ -43,7 +43,7 @@ function animate() {
         player.switchSprite('run_back')
     } else if (keys.d.pressed && player.lastKey === 'd') {
         player.velocity.x = 5
-        player.switchSprite('run_back')
+        player.switchSprite('run_fow')
     // } else if (player.velocity.y < 0){
     //     player.switchSprite('jump_up')
     //     console.log(gravity, player.velocity.y)
@@ -119,6 +119,10 @@ const player = new Fighter({
             imageSrc:'./sprites/Player_1/run_back.png',
             framesMax: 14
         },
+        run_fow:{
+            imageSrc:'./sprites/Player_1/run_fow.png',
+            framesMax: 14
+        },
         jump_up:{
             imageSrc:'./sprites/Player_1/jump_up.png',
             framesMax: 2
@@ -126,6 +130,10 @@ const player = new Fighter({
         jump_down:{
             imageSrc:'./sprites/Player_1/jump_down.png',
             framesMax: 7
+        },
+        attack:{
+            imageSrc:'./sprites/Player_1/attack.png',
+            framesMax: 15
         }
     }
 })
