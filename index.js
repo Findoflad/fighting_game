@@ -1,6 +1,6 @@
 const canvas = document.querySelector('canvas')
 const context = canvas.getContext('2d')
-const gravity = 0.7
+const gravity = 0.5
 const keys = {
     a: {
         pressed: false
@@ -38,16 +38,26 @@ function animate() {
     enemy.velocity.x = 0
 
     //player movement
-    player.image = player.sprites.idle.image
-    player.framesMax = player.sprites.idle.framesMax
     if (keys.a.pressed && player.lastKey === 'a') {
         player.velocity.x = -5
-        player.image = player.sprites.run.image
-        player.framesMax = player.sprites.run.framesMax
+        player.switchSprite('run_back')
     } else if (keys.d.pressed && player.lastKey === 'd') {
         player.velocity.x = 5
-        player.image = player.sprites.run.image
-        player.framesMax = player.sprites.run.framesMax
+        player.switchSprite('run_back')
+    // } else if (player.velocity.y < 0){
+    //     player.switchSprite('jump_up')
+    //     console.log(gravity, player.velocity.y)
+    // } else if (player.velocity.y > 0){
+    //     player.switchSprite('jump_down')
+    } else {
+        player.switchSprite('idle')
+    }
+
+    if (player.velocity.y < 0){
+        player.switchSprite('jump_up')
+    }
+    if (player.velocity.y > 0){
+        player.switchSprite('jump_down')
     }
 
     //enemy movement
@@ -86,7 +96,7 @@ const background = new Sprite({
 
 const test = new Sprite({
     position: { x: 0, y: 0 },
-    imageSrc: './sprites/Player_2/idle.png',
+    imageSrc: './sprites/Player_1/jump_down.png',
     framesMax: 7,
     scale: 0.7
 })
@@ -106,8 +116,16 @@ const player = new Fighter({
             framesMax: 9
         },
         run:{
-            imageSrc:'./sprites/Player_1/run.png',
+            imageSrc:'./sprites/Player_1/run_back.png',
             framesMax: 14
+        },
+        jump_up:{
+            imageSrc:'./sprites/Player_1/jump_up.png',
+            framesMax: 2
+        },
+        jump_down:{
+            imageSrc:'./sprites/Player_1/jump_down.png',
+            framesMax: 7
         }
     }
 })
